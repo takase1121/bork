@@ -11,29 +11,30 @@ To use bork, put this in your C file:
 Here is an example:
 ```c
 // assuming you included bork before
-STARTOPT
-LONGOPT {
-    LFLAGS("help");
-    if (strcmp(option, "help") == 0) 
-        usage();
-    else if (strcmp(option, "dostuff") == 0)
-        dostuff(optarg);
-    else
-        die("Unknown option '%s'", option);
-} SHORTOPT {
-    SFLAGS('h');
-    switch (option) {
-        case 'h':
+STARTOPT {
+    LONGOPT {
+        LFLAGS("help");
+        if (strcmp(option, "help") == 0) 
             usage();
-            break;
-        case 'D':
+        else if (strcmp(option, "dostuff") == 0)
             dostuff(optarg);
-            break;
-        default:
-            die("Unknown option: '%c'\n", option);
+        else
+            die("Unknown option '%s'", option);
+    } SHORTOPT {
+        SFLAGS('h');
+        switch (option) {
+            case 'h':
+                usage();
+                break;
+            case 'D':
+                dostuff(optarg);
+                break;
+            default:
+                die("Unknown option: '%c'\n", option);
+        }
+    } NONOPT {
+        printf("This ain't familia!: '%s'\n", nonopt);
     }
-} NONOPT {
-    printf("This ain't familia!: '%s'\n", nonopt);
 } ENDOPT;
 ```
 The example is pretty self-explanatory. I will explain in detail in the next section.
@@ -59,7 +60,7 @@ SFLAGS(...)
 
 
 ### `STARTOPT`
-This macro marks the start argument parsing. It must be ended with `ENDOPT`.
+This macro marks the start argument parsing. It must be followed by a code block and ended with `ENDOPT`.
 
 
 ### `LONGOPT`
@@ -122,7 +123,7 @@ You should place this macro before any statement in `SHORTOPT`
 > ```
 
 ## License
-Unlicense or MIT-0. See LICENSE.
+Unlicense or MIT-0. See [LICENSE](LICENSE).
 
 ## etc
 [This website](https://wandbox.org/permlink/tFUsKMIXaQj8hhte) really helped me to debug the macros.
