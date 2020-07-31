@@ -24,7 +24,7 @@ Here is an example:
 STARTOPT {
     LONGOPT {
         LFLAGS("help");
-        if (strcmp(option, "help") == 0) 
+        if (strcmp(option, "help") == 0)
             usage();
         else if (strcmp(option, "dostuff") == 0)
             dostuff(optarg);
@@ -175,24 +175,22 @@ if (argv[i][0] == '-' && argv[i][1] == '-') { \
 
 #define ENDOPT }
 
-#define ARRSIZE(array) (sizeof(array) / sizeof(atype))
-
-#define LFLAGS(...)                                \
-char* __temp[] = { __VA_ARGS__ };                  \
-for (int j = 0; j < ARRSIZE(__temp, char*); j++) { \
-    if (strcmp(argv[i] + 2, __temp[j]) == 0) {     \
-        optarg = NULL;                             \
-        i--;                                       \
-    }                                              \
+#define LFLAGS(...)                                          \
+char* __temp[] = { __VA_ARGS__ };                            \
+for (int j = 0; j < (sizeof(__temp) / sizeof(char*)); j++) { \
+    if (strcmp(argv[i] + 2, __temp[j]) == 0) {               \
+        optarg = NULL;                                       \
+        i--;                                                 \
+    }                                                        \
 }
 
-#define SFLAGS(...)                                \
-char __temp[] = { __VA_ARGS__ };                   \
-for (int j = 0; j < ARRSIZE(__temp, char); j++) {  \
-    if (argv[i][1] == __temp[j]) {                 \
-        optarg = NULL;                             \
-        i--;                                       \
-    }                                              \
+#define SFLAGS(...)                                          \
+char __temp[] = { __VA_ARGS__ };                             \
+for (int j = 0; j < (sizeof(__temp) / sizeof(char)); j++) {  \
+    if (argv[i][1] == __temp[j]) {                           \
+        optarg = NULL;                                       \
+        i--;                                                 \
+    }                                                        \
 }
 
 #undef ARRSIZE
