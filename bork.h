@@ -1,6 +1,6 @@
 /*
 Command-line argument parsing with C macros. Choice of public domain or MIT-0. See license statement at the end of this file.
-bork - v1.0.0 - 2020-7-30
+bork - v1.0.2 - 2020-7-30
 
 Kelvin Voon - takase1121@outlook.com
 
@@ -145,7 +145,7 @@ Unlicense or MIT-0. See [LICENSE](LICENSE).
 #include <string.h>
 
 #define STARTOPT               \
-for (int i = 0; i < argc; i++)
+for (int i = 1; i < argc; i++)
 
 #define LONGOPT                               \
 if (argv[i][0] == '-' && argv[i][1] == '-') { \
