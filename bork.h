@@ -1,6 +1,6 @@
 /*
 Command-line argument parsing with C macros. Choice of public domain or MIT-0. See license statement at the end of this file.
-bork - v0.1.0 - 2020-7-30
+bork - v1.0.0 - 2020-7-30
 
 Kelvin Voon - takase1121@outlook.com
 
