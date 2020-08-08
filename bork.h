@@ -30,6 +30,7 @@ STARTOPT {
         else
             die("Unknown option '%s'", option);
     } SHORTOPT {
+        SFLAGS('h');
         switch (option) {
             case 'h':
                 usage();
@@ -76,6 +77,7 @@ This macro should always be present before `SHORTOPT` and `NONOPT`. It can be em
 > This macro exposes two variables:
 > ```c
 > char* option;  // the name of the option, without thedashes
+> char* optarg;  // the argument for the option. It willbe NULL if option is a flag.
 > ```
 
 
@@ -87,6 +89,7 @@ This macro works almost the same as `LONGOPT`. Thus, the same rules apply.
 > This macro exposes two variables:
 > ```c
 > char option;   // the name of the option
+> char* optarg;  // the argument for the option. It will be NULL if option is a flag.
 > ```
 
 
