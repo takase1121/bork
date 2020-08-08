@@ -13,21 +13,19 @@ Here is an example:
 // assuming you included bork before
 STARTOPT {
     LONGOPT {
-        LFLAGS("help");
         if (strcmp(option, "help") == 0) 
             usage();
         else if (strcmp(option, "dostuff") == 0)
-            dostuff(optarg);
+            dostuff(GETS());
         else
             die("Unknown option '%s'", option);
     } SHORTOPT {
-        SFLAGS('h');
         switch (option) {
             case 'h':
                 usage();
                 break;
             case 'D':
-                dostuff(optarg);
+                dostuff(GETS());
                 break;
             default:
                 die("Unknown option: '%c'\n", option);
@@ -54,8 +52,7 @@ LONGOPT
 SHORTOPT
 NONOPT
 ENDOPT
-LFLAGS(...)
-SFLAGS(...)
+GETS()
 ```
 
 
@@ -69,7 +66,6 @@ This macro should always be present before `SHORTOPT` and `NONOPT`. It can be em
 > This macro exposes two variables:
 > ```c
 > char* option;  // the name of the option, without thedashes
-> char* optarg;  // the argument for the option. It willbe NULL if option is a flag.
 > ```
 
 
@@ -81,7 +77,6 @@ This macro works almost the same as `LONGOPT`. Thus, the same rules apply.
 > This macro exposes two variables:
 > ```c
 > char option;   // the name of the option
-> char* optarg;  // the argument for the option. It will be NULL if option is a flag.
 > ```
 
 
@@ -97,30 +92,8 @@ This macro is used to process non-option arguments and is optional.
 This macro marks the end for argument processing. It MUST BE PRESENT and should not be followed by code blocks.
 
 
-### `LFLAGS`
-This macro marks certain longopts as flags - preventing them for taking any optargs.
-You should place this macro before any statement in `LONGOPT`.
-> This macro requires the following argument:
-> ```c
-> ...  // Takes a list of strings (`char*`)
-> ```
-> Example:
-> ```c
-> LFLAGS("hello", "world");
-> ```
-
-
-### `SFLAGS`
-This macro marks certain shortopts as flags - preventing them for taking any optargs.
-You should place this macro before any statement in `SHORTOPT`
-> This macro requires the following argument:
-> ```c
-> ...  // Takes a list of characters (`char`)
-> ```
-> Example:
-> ```c
-> SFLAGS('h', 'e');
-> ```
+### `GETS()`
+This macro is used to get optargs. It can only be called once per option.
 
 ## License
 Unlicense or MIT-0. See [LICENSE](LICENSE).
